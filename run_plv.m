@@ -20,6 +20,8 @@ r = corrcoeff;
 [s1_n, s2_n] = add_noise(s1_f, s2_f, noise, N);
 fprintf('SNR: S1: %.02f, S2: %.02f\n', snr(s1_n, s1_f), snr(s2_n, s2_f))
 
+corr([s1_f;s2_f]')
+
 if strcmp(phase_method,'both')
     plvs_hilbert = hilbert_plv(s1_n, s2_n, freq);
     plvs_morlet = morlet_plv(s1_n, s2_n, freq);
