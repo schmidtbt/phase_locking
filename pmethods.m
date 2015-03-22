@@ -8,7 +8,7 @@ classdef pmethods < handle
             plv_morlet = [];
             
             for i = 1:num_times
-                plvs = run_plv(corrcoeff, filter, noise, 'both', freq, 0);
+                plvs = plvm.run_plv(corrcoeff, filter, noise, 'both', freq, 0);
                 plv_hilbert = [plv_hilbert; plvs(1,:)];
                 plv_morlet = [plv_morlet; plvs(2,:)];
             end
@@ -24,7 +24,7 @@ classdef pmethods < handle
             
             for r = corrcoeffs
                 r
-                [plv_hilbert, plv_morlet] = pmethods.average_run_plv(r, [0,0], [0,0], [6:44], num_runs);
+                [plv_hilbert, plv_morlet] = plvm.pmethods.average_run_plv(r, [0,0], [0,0], [6:44], num_runs);
                 Hout = [Hout; mean(plv_hilbert, 1)];
                 Mout = [Mout; mean(plv_morlet, 1)];
             end
@@ -34,12 +34,12 @@ classdef pmethods < handle
             hold on
             plot(Mout')
             
-            leg = []
+            leg = [];
             for i = corrcoeffs
-                leg = [leg; sprintf('H, r=%.02f',i)]
+                leg = [leg; sprintf('H, r=%.02f',i)];
             end
             for i = corrcoeffs
-                leg = [leg; sprintf('M, r=%.02f',i)]
+                leg = [leg; sprintf('M, r=%.02f',i)];
             end
             legend(leg)
             
@@ -62,7 +62,7 @@ classdef pmethods < handle
             Mout = [];
             
             for r = corrcoeffs
-                [plv_hilbert, plv_morlet] = pmethods.average_run_plv(r, [1,0], [0,0], [6:44], num_runs);
+                [plv_hilbert, plv_morlet] = plvm.pmethods.average_run_plv(r, [1,0], [0,0], [6:44], num_runs);
                 Hout = [Hout; mean(plv_hilbert, 1)];
                 Mout = [Mout; mean(plv_morlet, 1)];
             end
@@ -72,12 +72,12 @@ classdef pmethods < handle
             hold on
             plot(Mout')
             
-            leg = []
+            leg = [];
             for i = corrcoeffs
-                leg = [leg; sprintf('H, r=%.02f',i)]
+                leg = [leg; sprintf('H, r=%.02f',i)];
             end
             for i = corrcoeffs
-                leg = [leg; sprintf('M, r=%.02f',i)]
+                leg = [leg; sprintf('M, r=%.02f',i)];
             end
             legend(leg)
             
@@ -94,7 +94,7 @@ classdef pmethods < handle
             Mout = [];
             
             for r = corrcoeffs
-                [plv_hilbert, plv_morlet] = pmethods.average_run_plv(r, [0,0], [80,80], [6:44], num_runs);
+                [plv_hilbert, plv_morlet] = plvm.pmethods.average_run_plv(r, [0,0], [3,3], [6:44], num_runs);
                 Hout = [Hout; mean(plv_hilbert, 1)];
                 Mout = [Mout; mean(plv_morlet, 1)];
             end
@@ -104,12 +104,12 @@ classdef pmethods < handle
             hold on
             plot(Mout')
             
-            leg = []
+            leg = [];
             for i = corrcoeffs
-                leg = [leg; sprintf('H, r=%.02f',i)]
+                leg = [leg; sprintf('H, r=%.02f',i)];
             end
             for i = corrcoeffs
-                leg = [leg; sprintf('M, r=%.02f',i)]
+                leg = [leg; sprintf('M, r=%.02f',i)];
             end
             legend(leg)
             

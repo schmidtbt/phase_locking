@@ -18,7 +18,7 @@ r = corrcoeff;
 [s1, s2] = corr2_signal(r, N);
 [s1_f, s2_f] = filter_signal(s1, s2, filter);
 [s1_n, s2_n] = add_noise(s1_f, s2_f, noise, N);
-fprintf('SNR: S1: %.02f, S2: %.02f', snr(s1_n, s1_f), snr(s2_n, s2_f))
+fprintf('SNR: S1: %.02f, S2: %.02f\n', snr(s1_n, s1_f), snr(s2_n, s2_f))
 
 if strcmp(phase_method,'both')
     plvs_hilbert = hilbert_plv(s1_n, s2_n, freq);
@@ -52,7 +52,7 @@ end
     function [s1, s2] = corr2_signal(r, N)
         
         m1=0;m2=0; % means
-        sd1=1; sd2=2; % standard deviations
+        sd1=1; sd2=1; % standard deviations
         u=randn(1,N); % Gaussian time series, mean=0, sd=1;
         v=randn(1,N); % 2nd Gaussian time series (independent of u)
         
@@ -66,8 +66,14 @@ end
         noise1 = noise(1);
         noise2 = noise(2);
         
-        s1_n = s1 + (noise1 * rand(1,N));
-        s2_n = s2 + (noise2 * rand(1,N));
+        N1 = (noise1 .* rand(1,N));
+        N2 = (noise2 * rand(1,N));
+        
+        N1 = N1 - mean(N1);
+        N2 = N2 - mean(N2);
+        
+        s1_n = s1 + N1;
+        s2_n = s2 + N2;
     end
 
     function [s1_f, s2_f] = filter_signal(s1, s2, filter)
